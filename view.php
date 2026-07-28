@@ -93,13 +93,13 @@ if ($ricoshaejs->csscode) {
 }
 
 if ($ricoshaejs->jscode) {
-	
-// create jquery wrapper
-$jqwrapper = "require(['jquery','jqueryui'], function($) {";
-$jqwrapper .= $ricoshaejs->jscode;
-$jqwrapper .= "});";
 
-$PAGE->requires->js_amd_inline($jqwrapper);
+// Wrap user JS in a DOMContentLoaded listener for vanilla JS execution.
+$jswrapper = "document.addEventListener('DOMContentLoaded', function() {";
+$jswrapper .= $ricoshaejs->jscode;
+$jswrapper .= "});";
+
+$PAGE->requires->js_amd_inline($jswrapper);
 }
 
 
